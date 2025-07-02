@@ -46,7 +46,7 @@ struct SideMenuView: View {
                 
                 Spacer()
             }
-            .padding(.top, 40)
+            .padding(.top, 50)
             .frame(width: 240)
             .background(Color(NSColor.windowBackgroundColor))
         }
