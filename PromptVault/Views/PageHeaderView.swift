@@ -17,14 +17,14 @@ struct PageHeaderView: View {
             Text(title)
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundColor(.primary)
-                .padding(.top, 15)
-                .padding(.leading, 10)
+                .padding(.top, 16)
+                .padding(.leading, 15)
             
             // タイトル下のボーダー
             Rectangle()
                 .fill(Color(NSColor.separatorColor))
                 .frame(height: 1)
-                .padding(.top, 15)
+                .padding(.top, 16)
         }
     }
 }
