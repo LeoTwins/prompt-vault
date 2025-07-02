@@ -17,22 +17,35 @@ struct ContentView: View {
             
             Divider()
             
-            VStack {
-                Spacer()
-                
-                Image(systemName: "doc.text")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("PromptVault Dashboard")
-                    .font(.title)
-                Text("プロンプト管理ダッシュボード")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                
-                Spacer()
+            // 選択されたメニュー項目に応じて表示する画面を切り替える
+            Group {
+                switch sideMenuViewModel.selectedMenuItem?.type {
+                case .general:
+                    GeneralView()
+                case .prompts:
+                    PromptsView()
+                case .helpFeedback:
+                    HelpFeedbackView()
+                case .none:
+                    // デフォルト画面（選択なしの場合）
+                    VStack {
+                        Spacer()
+                        
+                        Image(systemName: "doc.text")
+                            .imageScale(.large)
+                            .foregroundStyle(.tint)
+                        Text("PromptVault Dashboard")
+                            .font(.title)
+                        Text("プロンプト管理ダッシュボード")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                    }
+                }
             }
-            .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(NSColor.controlBackgroundColor))
         }
         .ignoresSafeArea(.all, edges: .top)
         .frame(width: 800, height: 500)
