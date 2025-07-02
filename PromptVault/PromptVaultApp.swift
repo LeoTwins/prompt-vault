@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct PromptVaultApp: App {
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        MenuBarExtra("PromptVault", systemImage: "doc.text.below.ecg") {
+            MenuView()
         }
+        .menuBarExtraStyle(.window)
     }
 }

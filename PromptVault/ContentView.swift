@@ -10,12 +10,17 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: "doc.text")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("PromptVault Dashboard")
+                .font(.title)
+            Text("プロンプト管理ダッシュボード")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
         }
         .padding()
+        .frame(width: 600, height: 400)
     }
 }
 

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C29EDED82E13D6BA008684E4 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29EDED72E13D6B0008684E4 /* Untitled.swift */; };
+		C29EDEDC2E14137F008684E4 /* 要件定義書.md in Resources */ = {isa = PBXBuildFile; fileRef = C29EDEDA2E14137F008684E4 /* 要件定義書.md */; };
+		C29EDEDD2E14137F008684E4 /* CLAUDE.md in Resources */ = {isa = PBXBuildFile; fileRef = C29EDED92E14137F008684E4 /* CLAUDE.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,10 +29,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C29EDEA92E13D65C008684E4 /* PromptVault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PromptVault.app; path = /Users/sakaguchi/Documents/leo_twins/PromptVault/build/Debug/PromptVault.app; sourceTree = "<absolute>"; };
-		C29EDEBA2E13D65E008684E4 /* PromptVaultTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PromptVaultTests.xctest; path = /Users/sakaguchi/Documents/leo_twins/PromptVault/build/Debug/PromptVault.app/Contents/PlugIns/PromptVaultTests.xctest; sourceTree = "<absolute>"; };
-		C29EDEC42E13D65E008684E4 /* PromptVaultUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PromptVaultUITests.xctest; path = "/Users/sakaguchi/Documents/leo_twins/PromptVault/build/Debug/PromptVaultUITests-Runner.app/Contents/PlugIns/PromptVaultUITests.xctest"; sourceTree = "<absolute>"; };
-		C29EDED72E13D6B0008684E4 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		C29EDED92E14137F008684E4 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
+		C29EDEDA2E14137F008684E4 /* 要件定義書.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "要件定義書.md"; sourceTree = "<group>"; };
+		C29EDEDE2E14C305008684E4 /* PromptVault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromptVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C29EDEDF2E14C305008684E4 /* PromptVaultTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PromptVaultTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C29EDEE02E14C305008684E4 /* PromptVaultUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PromptVaultUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,11 +82,23 @@
 		C29EDEA02E13D65C008684E4 = {
 			isa = PBXGroup;
 			children = (
+				C29EDED92E14137F008684E4 /* CLAUDE.md */,
+				C29EDEDB2E14137F008684E4 /* Docs */,
 				C29EDEAB2E13D65C008684E4 /* PromptVault */,
 				C29EDEBD2E13D65E008684E4 /* PromptVaultTests */,
 				C29EDEC72E13D65E008684E4 /* PromptVaultUITests */,
-				C29EDED72E13D6B0008684E4 /* Untitled.swift */,
+				C29EDEDE2E14C305008684E4 /* PromptVault.app */,
+				C29EDEDF2E14C305008684E4 /* PromptVaultTests.xctest */,
+				C29EDEE02E14C305008684E4 /* PromptVaultUITests.xctest */,
 			);
+			sourceTree = "<group>";
+		};
+		C29EDEDB2E14137F008684E4 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				C29EDEDA2E14137F008684E4 /* 要件定義書.md */,
+			);
+			path = Docs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,7 +123,7 @@
 			packageProductDependencies = (
 			);
 			productName = PromptVault;
-			productReference = C29EDEA92E13D65C008684E4 /* PromptVault.app */;
+			productReference = C29EDEDE2E14C305008684E4 /* PromptVault.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C29EDEB92E13D65E008684E4 /* PromptVaultTests */ = {
@@ -132,7 +146,7 @@
 			packageProductDependencies = (
 			);
 			productName = PromptVaultTests;
-			productReference = C29EDEBA2E13D65E008684E4 /* PromptVaultTests.xctest */;
+			productReference = C29EDEDF2E14C305008684E4 /* PromptVaultTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C29EDEC32E13D65E008684E4 /* PromptVaultUITests */ = {
@@ -155,7 +169,7 @@
 			packageProductDependencies = (
 			);
 			productName = PromptVaultUITests;
-			productReference = C29EDEC42E13D65E008684E4 /* PromptVaultUITests.xctest */;
+			productReference = C29EDEE02E14C305008684E4 /* PromptVaultUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -207,6 +221,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29EDEDC2E14137F008684E4 /* 要件定義書.md in Resources */,
+				C29EDEDD2E14137F008684E4 /* CLAUDE.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +247,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C29EDED82E13D6BA008684E4 /* Untitled.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
