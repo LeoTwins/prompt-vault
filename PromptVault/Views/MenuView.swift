@@ -75,15 +75,70 @@ struct MenuView: View {
         } else {
             let dashboardWindow = NSWindow(
                 contentRect: NSRect(x: 0, y: 0, width: 600, height: 400),
-                styleMask: [.titled, .closable, .resizable],
+                styleMask: [.titled, .closable, .fullSizeContentView],
                 backing: .buffered,
                 defer: false
             )
-            dashboardWindow.title = "Dashboard"
+            dashboardWindow.title = ""
+            dashboardWindow.titlebarAppearsTransparent = true
+            dashboardWindow.titleVisibility = .hidden
+            
+            // ツールバーを作成してサイドメニューボタンを追加
+            let toolbar = NSToolbar(identifier: "MainToolbar")
+            toolbar.displayMode = .iconOnly
+            toolbar.showsBaselineSeparator = false
+            
+            // サイドメニュー表示/非表示ボタンのアイテム識別子
+            let sidebarItemIdentifier = NSToolbarItem.Identifier("SidebarToggle")
+            
+            // ツールバーデリゲートを設定
+            let toolbarDelegate = ToolbarDelegate(sidebarItemIdentifier: sidebarItemIdentifier)
+            toolbar.delegate = toolbarDelegate
+            
+            // ツールバーをウィンドウに設定
+            dashboardWindow.toolbar = toolbar
+            
             dashboardWindow.contentView = NSHostingView(rootView: ContentView())
             dashboardWindow.center()
             dashboardWindow.makeKeyAndOrderFront(nil)
         }
+    }
+}
+
+// NSToolbarのデリゲートクラス
+class ToolbarDelegate: NSObject, NSToolbarDelegate {
+    let sidebarItemIdentifier: NSToolbarItem.Identifier
+    
+    init(sidebarItemIdentifier: NSToolbarItem.Identifier) {
+        self.sidebarItemIdentifier = sidebarItemIdentifier
+        super.init()
+    }
+    
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        if itemIdentifier == sidebarItemIdentifier {
+            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
+            item.image = NSImage(systemSymbolName: "sidebar.left", accessibilityDescription: "Toggle Sidebar")
+            item.label = "サイドバー"
+            item.paletteLabel = "サイドバー"
+            item.toolTip = "サイドメニューの表示/非表示"
+            item.target = self
+            item.action = #selector(toggleSidebar(_:))
+            return item
+        }
+        return nil
+    }
+    
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return [sidebarItemIdentifier]
+    }
+    
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return [sidebarItemIdentifier]
+    }
+    
+    @objc func toggleSidebar(_ sender: Any) {
+        // ContentViewのEnvironmentObjectを通じてサイドバーの表示/非表示を切り替える
+        NotificationCenter.default.post(name: NSNotification.Name("ToggleSidebar"), object: nil)
     }
 }
 
