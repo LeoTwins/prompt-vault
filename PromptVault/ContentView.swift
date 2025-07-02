@@ -8,19 +8,47 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var sideMenuViewModel = SideMenuViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "doc.text")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("PromptVault Dashboard")
-                .font(.title)
-            Text("プロンプト管理ダッシュボード")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+        HStack(spacing: 0) {
+            SideMenuView()
+                .environmentObject(sideMenuViewModel)
+            
+            Divider()
+            
+            VStack {
+                Spacer()
+                
+                Image(systemName: "doc.text")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("PromptVault Dashboard")
+                    .font(.title)
+                Text("プロンプト管理ダッシュボード")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                
+                Spacer()
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding()
-        .frame(width: 600, height: 400)
+        .ignoresSafeArea(.all, edges: .top)
+        .frame(width: 800, height: 500)
+        .onAppear {
+            setupNotificationObserver()
+        }
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("ToggleSidebar"),
+            object: nil,
+            queue: .main
+        ) { _ in
+            sideMenuViewModel.toggleVisibility()
+        }
     }
 }
 
