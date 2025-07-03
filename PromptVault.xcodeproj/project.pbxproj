@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C27E5E392E16AFDE002A50C3 /* ER図.md in Resources */ = {isa = PBXBuildFile; fileRef = C27E5E362E16AFDE002A50C3 /* ER図.md */; };
+		C27E5E3A2E16AFDE002A50C3 /* アーキテクチャ.md in Resources */ = {isa = PBXBuildFile; fileRef = C27E5E372E16AFDE002A50C3 /* アーキテクチャ.md */; };
+		C27E5E3B2E16AFDE002A50C3 /* コーディング規約.md in Resources */ = {isa = PBXBuildFile; fileRef = C27E5E382E16AFDE002A50C3 /* コーディング規約.md */; };
+		C27E5E3F2E16B578002A50C3 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = C27E5E3E2E16B578002A50C3 /* SQLite */; };
 		C29EDEDC2E14137F008684E4 /* 要件定義書.md in Resources */ = {isa = PBXBuildFile; fileRef = C29EDEDA2E14137F008684E4 /* 要件定義書.md */; };
 		C29EDEDD2E14137F008684E4 /* CLAUDE.md in Resources */ = {isa = PBXBuildFile; fileRef = C29EDED92E14137F008684E4 /* CLAUDE.md */; };
 /* End PBXBuildFile section */
@@ -29,6 +33,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C27E5E362E16AFDE002A50C3 /* ER図.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "ER図.md"; sourceTree = "<group>"; };
+		C27E5E372E16AFDE002A50C3 /* アーキテクチャ.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "アーキテクチャ.md"; sourceTree = "<group>"; };
+		C27E5E382E16AFDE002A50C3 /* コーディング規約.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "コーディング規約.md"; sourceTree = "<group>"; };
 		C29EDED92E14137F008684E4 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		C29EDEDA2E14137F008684E4 /* 要件定義書.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "要件定義書.md"; sourceTree = "<group>"; };
 		C29EDEDE2E14C305008684E4 /* PromptVault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromptVault.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C27E5E3F2E16B578002A50C3 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +104,9 @@
 		C29EDEDB2E14137F008684E4 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
+				C27E5E362E16AFDE002A50C3 /* ER図.md */,
+				C27E5E372E16AFDE002A50C3 /* アーキテクチャ.md */,
+				C27E5E382E16AFDE002A50C3 /* コーディング規約.md */,
 				C29EDEDA2E14137F008684E4 /* 要件定義書.md */,
 			);
 			path = Docs;
@@ -121,6 +132,7 @@
 			);
 			name = PromptVault;
 			packageProductDependencies = (
+				C27E5E3E2E16B578002A50C3 /* SQLite */,
 			);
 			productName = PromptVault;
 			productReference = C29EDEDE2E14C305008684E4 /* PromptVault.app */;
@@ -204,6 +216,9 @@
 			);
 			mainGroup = C29EDEA02E13D65C008684E4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C27E5E3C2E16B125002A50C3 /* XCRemoteSwiftPackageReference "SQLite" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C29EDEA02E13D65C008684E4;
 			projectDirPath = "";
@@ -221,6 +236,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C27E5E392E16AFDE002A50C3 /* ER図.md in Resources */,
+				C27E5E3A2E16AFDE002A50C3 /* アーキテクチャ.md in Resources */,
+				C27E5E3B2E16AFDE002A50C3 /* コーディング規約.md in Resources */,
 				C29EDEDC2E14137F008684E4 /* 要件定義書.md in Resources */,
 				C29EDEDD2E14137F008684E4 /* CLAUDE.md in Resources */,
 			);
@@ -560,6 +578,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C27E5E3C2E16B125002A50C3 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C27E5E3E2E16B578002A50C3 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C27E5E3C2E16B125002A50C3 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C29EDEA12E13D65C008684E4 /* Project object */;
 }
