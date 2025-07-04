@@ -34,6 +34,11 @@ final class HotkeyViewModel {
         let request: NSFetchRequest<HotkeyEntity> = HotkeyEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(keyPath: \HotkeyEntity.createdAt, ascending: true)]
         
+        // パフォーマンス最適化設定
+        request.returnsObjectsAsFaults = false  // オブジェクトを即座に初期化
+        request.includesSubentities = false     // サブエンティティを含めない
+        request.fetchBatchSize = 20             // バッチサイズ制限でメモリ使用量を制御
+        
         do {
             hotkeys = try databaseManager.context.fetch(request)
             isLoading = false

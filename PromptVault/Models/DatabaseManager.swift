@@ -12,8 +12,10 @@ class DatabaseManager {
     static let shared = DatabaseManager()
     
     private init() {
-        // デフォルトカテゴリの作成をバックグラウンドで実行
-        createDefaultCategoriesIfNeeded()
+        // デフォルトカテゴリの作成を非同期で実行してUIスレッドブロックを防止
+        Task {
+            await createDefaultCategoriesIfNeeded()
+        }
     }
     
     // MARK: - Core Data Stack
@@ -47,13 +49,15 @@ class DatabaseManager {
     
     // MARK: - Default Categories
     
-    private func createDefaultCategoriesIfNeeded() {
+    private func createDefaultCategoriesIfNeeded() async {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         
         do {
             let count = try context.count(for: request)
             if count == 0 {
-                createDefaultCategories()
+                await MainActor.run {
+                    createDefaultCategories()
+                }
             }
         } catch {
             print("Error checking categories: \(error)")
