@@ -23,7 +23,16 @@ erDiagram
         datetime createdAt
         datetime updatedAt
         int32 usageCount
-        string shortcutKey
+        UUID hotkeyId FK
+    }
+
+    Hotkey {
+        UUID id PK
+        int16 keyCode
+        int16 modifiers
+        boolean isEnabled
+        string displayName
+        datetime createdAt
     }
 
 
@@ -39,6 +48,7 @@ erDiagram
 
     Category ||--o{ Prompt : "categorizes"
     Prompt ||--o{ Variable : "contains variables"
+    Prompt ||--o| Hotkey : "has hotkey"
 ```
 
 ## エンティティ詳細
@@ -70,14 +80,32 @@ erDiagram
 | createdAt | Date | NOT NULL | 作成日時 |
 | updatedAt | Date | NOT NULL | 更新日時 |
 | usageCount | Int32 | NOT NULL, DEFAULT 0 | 使用回数 |
-| shortcutKey | String | NULLABLE, UNIQUE | ショートカットキー（例：cmd+shift+1） |
+| hotkeyId | UUID | FK, NULLABLE | ホットキーID |
 
 **特徴**
 - 使用統計情報を内包（usageCount）
 - カテゴリによる分類管理
-- 個別ショートカットキーによる直接アクセス
+- 個別ホットキーによる直接アクセス
 - Phase2の変数システムに対応（${variable_name}形式）
 
+
+### Hotkey（ホットキー）
+プロンプトの起動用ホットキーを管理するエンティティです。
+
+| 属性名 | 型 | 制約 | 説明 |
+|--------|-----|------|------|
+| id | UUID | PK | 主キー |
+| keyCode | Int16 | NOT NULL | 仮想キーコード（例：9=V） |
+| modifiers | Int16 | NOT NULL | 修飾キー（Command=256, Shift=512等） |
+| isEnabled | Boolean | NOT NULL, DEFAULT true | 有効/無効フラグ |
+| displayName | String | NOT NULL | 表示名（例：⌘⇧V） |
+| createdAt | Date | NOT NULL | 作成日時 |
+
+**特徴**
+- macOS仮想キーコードによる正確なキー管理
+- 修飾キーの組み合わせをビットフラグで管理
+- 表示用文字列の自動生成
+- 重複キー組み合わせの検出機能
 
 ### Variable（変数）- Phase2実装
 プロンプトテンプレートの変数を管理するエンティティです。
@@ -103,13 +131,16 @@ erDiagram
 - **Category ← Prompt**: 1つのカテゴリは複数のプロンプトを持つ
 - **Prompt ← Variable**: 1つのプロンプトは複数の変数を持つ（Phase2）
 
+### 1対1関係
+- **Prompt ← Hotkey**: 1つのプロンプトは最大1つのホットキーを持つ
+
 
 ## インデックス設計
 
 ### パフォーマンス最適化用インデックス
 - `Prompt.categoryId`: カテゴリ別検索
 - `Prompt.usageCount`: 使用頻度順ソート
-- `Prompt.shortcutKey`: ショートカットキー検索（UNIQUE制約）
+- `Hotkey.keyCode, modifiers`: ホットキー組み合わせ検索（複合UNIQUE制約）
 - `Variable.promptId`: プロンプト別変数検索
 
 ## 実装フェーズ
@@ -119,7 +150,7 @@ erDiagram
 - ✅ Prompt エンティティ
 - 基本的なCRUD操作
 - カテゴリ分類機能
-- ショートカットキー機能
+- ホットキー機能
 
 ### Phase2（機能強化）
 - ✅ Variable エンティティ
@@ -130,8 +161,9 @@ erDiagram
 
 Phase1からPhase2への移行時：
 1. `Variable` エンティティを追加
-2. 軽量マイグレーション実行
-3. 既存プロンプトの変数検出機能を追加
+2. `Hotkey` エンティティの拡張（グローバルホットキー対応）
+3. 軽量マイグレーション実行
+4. 既存プロンプトの変数検出機能を追加
 
 ## セキュリティ考慮事項
 
