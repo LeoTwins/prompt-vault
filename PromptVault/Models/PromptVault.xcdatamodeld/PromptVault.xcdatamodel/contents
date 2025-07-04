@@ -3,14 +3,14 @@
     <entity name="Category" representedClassName="CategoryEntity" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID"/>
         <attribute name="name" optional="NO" attributeType="String"/>
         <relationship name="prompts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Prompt" inverseName="category" inverseEntity="Prompt"/>
     </entity>
     <entity name="Hotkey" representedClassName="HotkeyEntity" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="displayName" optional="NO" attributeType="String"/>
-        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID"/>
         <attribute name="isEnabled" optional="NO" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="keyCode" optional="NO" attributeType="Integer 16" usesScalarValueType="YES"/>
         <attribute name="modifiers" optional="NO" attributeType="Integer 16" usesScalarValueType="YES"/>
@@ -19,7 +19,7 @@
     <entity name="Prompt" representedClassName="PromptEntity" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="NO" attributeType="String"/>
         <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID"/>
         <attribute name="title" optional="NO" attributeType="String"/>
         <attribute name="updatedAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="usageCount" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

@@ -70,7 +70,7 @@ class DatabaseManager {
         
         for (name, color) in defaultCategories {
             let category = CategoryEntity(context: context)
-            category.id = UUID().uuidString
+            category.id = UUID()
             category.name = name
             category.color = color
             category.createdAt = Date()
@@ -90,7 +90,7 @@ class DatabaseManager {
         }
         
         let hotkey = HotkeyEntity(context: context)
-        hotkey.id = UUID().uuidString
+        hotkey.id = UUID()
         hotkey.keyCode = keyCode
         hotkey.modifiers = modifiers
         hotkey.displayName = displayName
