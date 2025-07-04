@@ -32,18 +32,14 @@ class DatabaseMigration {
     
     /// データベースバージョン1へのマイグレーション
     /// Core Dataコンテキストの初期化確認とデフォルトデータの作成確認
+    /// Hotkeyエンティティの追加も含む
     private static func migrateToVersion1() throws {
-        print("Migrating to version 1: Initializing Core Data")
+        print("Migrating to version 1: Initializing Core Data with Hotkey support")
         
-        do {
-            // DatabaseManagerの初期化により、デフォルトカテゴリが作成される
-            let _ = DatabaseManager.shared
-            print("✅ Core Data stack initialized")
-            print("✅ Default categories will be created if needed")
-            
-        } catch {
-            print("❌ Migration to version 1 failed: \(error)")
-            throw error
-        }
+        // DatabaseManagerの初期化により、デフォルトカテゴリが作成される
+        let _ = DatabaseManager.shared
+        print("✅ Core Data stack initialized")
+        print("✅ Default categories will be created if needed")
+        print("✅ Hotkey entity available for use")
     }
 }

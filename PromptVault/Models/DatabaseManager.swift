@@ -79,4 +79,49 @@ class DatabaseManager {
         saveContext()
         print("✅ Default categories created")
     }
+    
+    // MARK: - Hotkey Management
+    
+    func createHotkey(keyCode: Int16, modifiers: Int16, displayName: String) -> HotkeyEntity? {
+        // Check for duplicate key combination
+        if hotkeyExists(keyCode: keyCode, modifiers: modifiers) {
+            print("❌ Hotkey combination already exists: \(displayName)")
+            return nil
+        }
+        
+        let hotkey = HotkeyEntity(context: context)
+        hotkey.id = UUID().uuidString
+        hotkey.keyCode = keyCode
+        hotkey.modifiers = modifiers
+        hotkey.displayName = displayName
+        hotkey.isEnabled = true
+        hotkey.createdAt = Date()
+        
+        saveContext()
+        print("✅ Hotkey created: \(displayName)")
+        return hotkey
+    }
+    
+    func hotkeyExists(keyCode: Int16, modifiers: Int16) -> Bool {
+        let request: NSFetchRequest<HotkeyEntity> = HotkeyEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "keyCode == %d AND modifiers == %d", keyCode, modifiers)
+        
+        do {
+            let count = try context.count(for: request)
+            return count > 0
+        } catch {
+            print("Error checking hotkey existence: \(error)")
+            return false
+        }
+    }
+    
+    func deleteHotkey(_ hotkey: HotkeyEntity) {
+        context.delete(hotkey)
+        saveContext()
+        print("✅ Hotkey deleted: \(hotkey.displayName ?? "Unknown")")
+    }
+    
+    func generateDisplayName(keyCode: Int16, modifiers: Int16) -> String {
+        return HotkeyFormatter.generateDisplayName(keyCode: keyCode, modifiers: modifiers)
+    }
 }

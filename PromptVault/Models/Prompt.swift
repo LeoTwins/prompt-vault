@@ -15,7 +15,7 @@ struct Prompt: Identifiable, Codable, Equatable {
     let createdAt: Date
     let updatedAt: Date
     let usageCount: Int
-    let shortcutKey: String?
+    let hotkeyId: String?
     
     init(
         id: String = UUID().uuidString,
@@ -25,7 +25,7 @@ struct Prompt: Identifiable, Codable, Equatable {
         createdAt: Date = Date(),
         updatedAt: Date = Date(),
         usageCount: Int = 0,
-        shortcutKey: String? = nil
+        hotkeyId: String? = nil
     ) {
         self.id = id
         self.title = title
@@ -34,7 +34,7 @@ struct Prompt: Identifiable, Codable, Equatable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.usageCount = usageCount
-        self.shortcutKey = shortcutKey
+        self.hotkeyId = hotkeyId
     }
 }
 
@@ -48,11 +48,11 @@ extension Prompt {
             createdAt: createdAt,
             updatedAt: Date(),
             usageCount: usageCount + 1,
-            shortcutKey: shortcutKey
+            hotkeyId: hotkeyId
         )
     }
     
-    func withUpdatedContent(title: String? = nil, content: String? = nil, shortcutKey: String? = nil) -> Prompt {
+    func withUpdatedContent(title: String? = nil, content: String? = nil, hotkeyId: String? = nil) -> Prompt {
         return Prompt(
             id: id,
             title: title ?? self.title,
@@ -61,7 +61,7 @@ extension Prompt {
             createdAt: createdAt,
             updatedAt: Date(),
             usageCount: usageCount,
-            shortcutKey: shortcutKey ?? self.shortcutKey
+            hotkeyId: hotkeyId ?? self.hotkeyId
         )
     }
 }
