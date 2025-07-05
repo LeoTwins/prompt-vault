@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreData
+@preconcurrency import CoreData
 
 class DatabaseManager {
     static let shared = DatabaseManager()
@@ -22,9 +22,40 @@ class DatabaseManager {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "PromptVault")
-        container.loadPersistentStores { _, error in
+        
+        // 軽量マイグレーション設定
+        let storeDescription = container.persistentStoreDescriptions.first
+        storeDescription?.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
+        storeDescription?.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
+        
+        container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
-                fatalError("Core Data error: \(error), \(error.userInfo)")
+                // 開発中のデータベース削除とリセット
+                print("❌ Core Data migration error: \(error)")
+                print("🔄 Attempting to delete and recreate database...")
+                
+                if let storeURL = storeDescription.url {
+                    do {
+                        try FileManager.default.removeItem(at: storeURL)
+                        print("✅ Old database deleted")
+                        
+                        // 再度ストアを作成
+                        try container.persistentStoreCoordinator.addPersistentStore(
+                            ofType: NSSQLiteStoreType,
+                            configurationName: nil,
+                            at: storeURL,
+                            options: [
+                                NSMigratePersistentStoresAutomaticallyOption: true,
+                                NSInferMappingModelAutomaticallyOption: true
+                            ]
+                        )
+                        print("✅ New database created")
+                    } catch {
+                        fatalError("Failed to delete and recreate database: \(error)")
+                    }
+                } else {
+                    fatalError("Core Data error: \(error), \(error.userInfo)")
+                }
             }
         }
         return container
@@ -40,10 +71,14 @@ class DatabaseManager {
         if context.hasChanges {
             do {
                 try context.save()
+                print("✅ Context saved successfully")
             } catch {
                 let nsError = error as NSError
+                print("❌ Context save failed: \(nsError), \(nsError.userInfo)")
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+        } else {
+            print("⚠️ No changes to save in context")
         }
     }
     
